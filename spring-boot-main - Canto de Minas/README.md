@@ -41,6 +41,6 @@ As seguintes tecnologias foram utilizadas no desenvolvimento da API Rest do proj
 
 ## 📝 Licença
 
-Projeto desenvolvido por Igor. 
+Projeto da API desenvolvido por Igor. 
 
 ---

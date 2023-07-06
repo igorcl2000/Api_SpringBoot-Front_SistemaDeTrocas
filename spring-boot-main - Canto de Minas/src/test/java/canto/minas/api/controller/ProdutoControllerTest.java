@@ -1,4 +1,4 @@
-package med.voll.api.controller;
+package canto.minas.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
