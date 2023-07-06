@@ -1,29 +1,27 @@
 ## 💻 Sobre o projeto
 
-Voll.med é uma clínica médica fictícia que precisa de um aplicativo para gestão de consultas. O aplicativo deve possuir funcionalidades que permitam o cadastro de médicos e de pacientes, e também o agendamento e cancelamento de consultas.
-
-Enquanto um time de desenvolvimento será responsável pelo aplicativo mobile, o nosso será responsável pelo desenvolvimento da API Rest desse projeto.
+Registro de Trocas Canto de Minas, e uma API responsavel por facilitar o registro de trocas de produtos em suas lojas parceiras por parte dos receptores.
 
 ---
 
 ## ⚙️ Funcionalidades
 
-- [x] CRUD de médicos;
-- [x] CRUD de pacientes;
-- [x] Agendamento de consultas;
-- [x] Cancelamento de consultas.
+- [x] CRUD de Loja;
+- [x] CRUD de Repositor;
+- [x] CRUD de Produtos;
+- [x] CRUD de Trocas.
 
 ---
 
 ## 🎨 Layout
 
-O layout da aplicação mobile está disponível neste link: <a href="https://www.figma.com/file/N4CgpJqsg7gjbKuDmra3EV/Voll.med">Figma</a>
+O layout da aplicação desenvolvida em HTML, CSS e JS.
 
 ---
 
 ## 📄 Documentação
 
-A documentação das funcionalidades da aplicação pode ser acessada neste link: <a href="https://trello.com/b/O0lGCsKb/api-voll-med">Trello</a>
+A documentação das funcionalidades da aplicação pode ser acessada neste link: <a href="localhost:8080/swagger-ui/index.html">Swagger Ui</a>
 
 ---
 
@@ -43,8 +41,6 @@ As seguintes tecnologias foram utilizadas no desenvolvimento da API Rest do proj
 
 ## 📝 Licença
 
-Projeto desenvolvido por [Alura](https://www.alura.com.br) e utilizado nos cursos de Spring Boot.
-
-Instrutor: [Rodrigo Ferreira](https://cursos.alura.com.br/user/rodrigo-ferreira) 
+Projeto desenvolvido por Igor. 
 
 ---

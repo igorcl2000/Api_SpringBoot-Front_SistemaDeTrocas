@@ -28,7 +28,7 @@
 
     <div class="form-container">
 
-        <a id="back" href="/cadastroFunc/index.html">
+        <a id="back" href="../index.html">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left"
                 viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
@@ -36,36 +36,53 @@
             </svg>
         </a>
 
-        <div class="container mt-3"  >
-            <h2>Cadastrar de Funcionário</h2>
-            <form id="repositoryForm">
+        <div class="container mt-3">
+            <h2>Cadastrar Repositor</h2>
+            <form id="patient-form">
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome:</label>
-                    <input type="text" class="form-control" id="nome" name="nome" required>
+                    <input type="text" class="form-control" id="nome" name="nome" maxlength="50" required>
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="mb-3">
-                    <label for="cpf" class="form-label">CPF:</label>
-                    <input type="cpf" class="form-control" id="cpf" name="cpf" required>
+                    <input type="email" class="form-control" id="email" name="email" maxlength="80" required>
                 </div>
                 <div class="mb-3">
                     <label for="telefone" class="form-label">Telefone:</label>
-                    <input type="tel" class="form-control" id="telefone" name="telefone" required>
+                    <input type="tel" class="form-control" id="telefone" name="telefone" placeholder="(00) 00000-0000" maxlength="15" required>
                 </div>
                 <div class="mb-3">
-                    <button type="submit" class="btn btn-primary">Cadastrar</button>
+                    <label for="cpf" class="form-label">CPF:</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" placeholder="000.000.000-00" required>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
     </div>
-
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#repositoryForm').submit(function(event) {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#cpf').mask('000.000.000-00');
+            $('#patient-form').submit(function(event){
+                event.preventDefault();
+                let cpf = $('#cpf').cleanVal();
+                console.log(cpf);
+            });
+        });
+        $(document).ready(function(){
+            var maskBehavior = function (val) {
+                return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+            },
+            options = {onKeyPress: function(val, e, field, options) {
+                    field.mask(maskBehavior.apply({}, arguments), options);
+                }
+            };
+            $('#telefone').mask(maskBehavior, options);
+            
+            $('#patient-form').submit(function(event) {
                 event.preventDefault();
 
                 var formData = {
@@ -83,7 +100,7 @@
                     success: function(response) {
                         console.log('Repositor cadastrado com sucesso:', response);
                         alert('Repositor cadastrado com sucesso!');
-                        // Redirecionar para outra página, se necessário
+                        location.reload();
                     },
                     error: function(error) {
                         console.error('Erro ao cadastrar repositor:', error);
@@ -93,7 +110,6 @@
             });
         });
     </script>
-
 </body>
 
 </html>

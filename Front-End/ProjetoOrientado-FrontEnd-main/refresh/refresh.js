@@ -1,5 +1,4 @@
 const pullToRefresh = document.querySelector('.pull-to-refresh');
-console.log(pullToRefresh);
 let touchstartY = 0;
 document.addEventListener('touchstart', e =>{
     touchstartY = e.touches[0].clientY;

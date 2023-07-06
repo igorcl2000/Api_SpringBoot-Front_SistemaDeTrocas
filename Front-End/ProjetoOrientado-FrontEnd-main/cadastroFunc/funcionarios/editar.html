@@ -28,7 +28,7 @@
 
     <div class="form-container">
 
-        <a id="back" href="/cadastroFunc/index.html">
+        <a id="back" href="../index.html">
             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left"
                 viewBox="0 0 16 16">
                 <path fill-rule="evenodd"
@@ -37,8 +37,12 @@
         </a>
 
         <div class="container mt-3">
-            <h2>Editar Funcionário</h2>
-            <form id="patient-form">
+            <h2>Editar Repositor</h2>
+            <form id="editForm">
+                <div style="display: none;" class="mb-3">
+                    <label for="id" class="form-label">ID</label>
+                    <input type="text" class="form-control" id="id" name="id" required>
+                </div>
                 <div class="mb-3">
                     <label for="nome" class="form-label">Nome:</label>
                     <input type="text" class="form-control" id="nome" name="nome" required>
@@ -56,91 +60,80 @@
                     <input type="text" class="form-control" id="cpf" name="cpf" required>
                 </div>
                 <div class="mb-3">
-                    <label for="logradouro" class="form-label">Logradouro:</label>
-                    <input type="text" class="form-control" id="logradouro" name="logradouro" required>
-                </div>
-                <div class="mb-3">
-                    <label for="bairro" class="form-label">Bairro:</label>
-                    <input type="text" class="form-control" id="bairro" name="bairro" required>
-                </div>
-                <div class="mb-3">
-                    <label for="cep" class="form-label">CEP:</label>
-                    <input type="text" class="form-control" id="cep" name="cep" required>
-                </div>
-                <div class="mb-3">
-                    <label for="cidade" class="form-label">Cidade:</label>
-                    <input type="text" class="form-control" id="cidade" name="cidade" required>
-                </div>
-                <div class="mb-3">
-                    <label for="uf" class="form-label">UF:</label>
-                    <input type="text" class="form-control" id="uf" name="uf" required>
-                </div>
-                <div class="mb-3">
-                    <label for="complemento" class="form-label">Complemento:</label>
-                    <textarea class="form-control" id="complemento" name="complemento"></textarea>
-                </div>
-                <div class="mb-3">
-                    <label for="numero" class="form-label">Número:</label>
-                    <input type="text" class="form-control" id="numero" name="numero" required>
-                </div>
-                <div class="mb-3">
                     <button type="submit" class="btn btn-primary">Salvar</button>
                 </div>
             </form>
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script>
-        document.getElementById('patient-form').addEventListener('submit', function (event) {
+        $(document).ready(function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+
+            if (id) {
+                // Obter informações do repositório selecionado
+                fetch(`http://localhost:8080/repositor/${id}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('id').value = data.id;
+                        document.getElementById('nome').value = data.nome;
+                        document.getElementById('cpf').value = data.cpf;
+                        document.getElementById('email').value = data.email;
+                        document.getElementById('telefone').value = data.telefone;
+                    })
+                    .catch(error => console.error('Erro ao obter dados do repositório:', error));
+            }
+        });
+
+        // Envie uma solicitação PUT para atualizar o repositório
+        $('#editForm').submit(function(event) {
             event.preventDefault();
-
-            // Extrair os valores do formulário
-            var nome = document.getElementById('nome').value;
-            var email = document.getElementById('email').value;
-            var telefone = document.getElementById('telefone').value;
-            var cpf = document.getElementById('cpf').value;
-            var logradouro = document.getElementById('logradouro').value;
-            var bairro = document.getElementById('bairro').value;
-            var cep = document.getElementById('cep').value;
-            var cidade = document.getElementById('cidade').value;
-            var uf = document.getElementById('uf').value;
-            var complemento = document.getElementById('complemento').value;
-            var numero = document.getElementById('numero').value;
-
-            // Criar objeto de dados do paciente
-            var paciente = {
-                nome: nome,
-                email: email,
-                telefone: telefone,
-                cpf: cpf,
-                endereco: {
-                    logradouro: logradouro,
-                    bairro: bairro,
-                    cep: cep,
-                    cidade: cidade,
-                    uf: uf,
-                    complemento: complemento,
-                    numero: numero
-                }
+            
+            const formData = {
+                id: document.getElementById('id').value,
+                nome: document.getElementById('nome').value,
+                cpf: document.getElementById('cpf').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value
             };
 
-            // Enviar os dados para a API Rest
-            fetch('http://localhost:8080/pacientes', {
-                method: 'POST',
+            fetch('http://localhost:8080/repositor', {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(paciente)
+                body: JSON.stringify(formData)
             })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Cadastro realizado com sucesso:', data);
-                    // Redirecionar ou exibir uma mensagem de sucesso, se necessário
-                })
-                .catch(error => {
-                    console.error('Erro ao cadastrar paciente:', error);
-                    // Exibir uma mensagem de erro, se necessário
-                });
+            .then(response => response.json())
+            .then(data => {
+                console.log('Repositório atualizado com sucesso:', data);
+                alert('Repositório atualizado com sucesso!');
+                window.location.href = '../index.html';
+                // Redirecione para a página principal ou qualquer outra ação necessária
+            })
+            .catch(error => console.error('Erro ao atualizar repositório:', error));
+        });
+
+        $(document).ready(function(){
+            $('#cpf').mask('000.000.000-00');
+            $('#editForm').submit(function(event){
+                event.preventDefault();
+                let cpf = $('#cpf').cleanVal();
+                console.log(cpf);
+            });
+        });
+        $(document).ready(function(){
+            var maskBehavior = function (val) {
+                return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+            },
+            options = {onKeyPress: function(val, e, field, options) {
+                    field.mask(maskBehavior.apply({}, arguments), options);
+                }
+            };
+            $('#telefone').mask(maskBehavior, options);
         });
     </script>
 

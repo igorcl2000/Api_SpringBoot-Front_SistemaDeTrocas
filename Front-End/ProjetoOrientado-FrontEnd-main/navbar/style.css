@@ -2,23 +2,30 @@
   background-color: #fcb103;
 }
 
-.icons{
+.icons {
   width: 25%;
 }
 
 .navbar-brand {
   max-height: 50px;
 }
+
+.navbar a:hover{
+  background-color: #00852a;
+}
+
 @media (max-width: 992px) {
   .navbar-brand {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
   }
+
   .navbar-toggler {
     order: -1;
   }
-  .icons{
+
+  .icons {
     width: 6%;
   }
 }

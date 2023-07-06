@@ -47,7 +47,7 @@ body {
 
 /* Altera a cor de fundo das informações das paginas */
 .dataTables_wrapper.no-footer .dataTables_info {
-  color: #fff !important;
+  color: #000000 !important;
 }
 
 /* Altera a cor de fundo e a cor do texto do campo de busca */
@@ -63,7 +63,7 @@ body {
 .dataTables_wrapper .dataTables_info,
 .dataTables_wrapper .dataTables_processing,
 .dataTables_wrapper .dataTables_paginate {
-  color: #000 !important;
+  color: #ffffff !important;
 }
 
 /* Altera o background da tabela */

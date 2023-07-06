@@ -33,7 +33,7 @@
 
     <div class="container">
         <div class="table-list">
-            <h1>Lista de Produtos</h1>
+            <h1>Produtos</h1>
 
             <div class="table-responsive">
                 <table id="productTable">
@@ -55,10 +55,10 @@
     </div>
 
     <div id="buttons-group">
-        <a href="/cadastroFunc/produtos/editar.html">
+        <!-- <a href="editar.html">
             <button type="button" class="btn btn-dark">Editar</button>
-        </a>
-        <a href="/cadastroFunc/produtos/adicionar.html">
+        </a> -->
+        <a href="adicionar.html">
             <button type="button" class="btn btn-dark">Adicionar</button>
         </a>
     </div>
@@ -110,6 +110,9 @@
                 .then(data => {
                     const productTable = $('#productTable').DataTable({
                         data: data.content,
+                        language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/pt-BR.json',
+                        },
                         columns: [
                             { data: 'id' },
                             { data: 'nome' },
@@ -124,8 +127,8 @@
                             {
                                 data: null,
                                 render: function(data, type, row) {
-                                    return `<button class="edit-button" onclick="editProduct(${row.id})">Editar</button>
-                                            <button class="delete-button" onclick="deleteProduct(${row.id})">Deletar</button>`;
+                                    return `<button class="btn btn-primary" onclick="editProduct(${row.id})">Editar</button>
+                                            <button class="btn btn-danger" onclick="deleteProduct(${row.id})">Deletar</button>`;
                                 }
                             }
                         ]
@@ -152,7 +155,7 @@
         }
 
         function editProduct(id) {
-            window.location.href = `editProdutos.html?id=${id}`;
+            window.location.href = `editar.html?id=${id}`;
         }
     </script>
 

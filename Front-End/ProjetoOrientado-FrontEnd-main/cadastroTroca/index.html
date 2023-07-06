@@ -33,7 +33,7 @@
 
     <div class="container">
         <div class="table-list">
-            <h1>Lista de Trocas</h1>
+            <h1>Trocas</h1>
 
             <div class="table-responsive">
                 <table id="exchangeTable">
@@ -61,10 +61,10 @@
     </div>
 
     <div id="buttons-group">
-        <a href="/cadastroFunc/produtos/editar.html">
+        <!-- <a href="/cadastroFunc/produtos/editar.html">
             <button type="button" class="btn btn-dark">Editar</button>
-        </a>
-        <a href="/cadastroFunc/produtos/adicionar.html">
+        </a> -->
+        <a href="../cadastroTroca/adicionar.html">
             <button type="button" class="btn btn-dark">Adicionar</button>
         </a>
     </div>
@@ -106,20 +106,23 @@
         });
     </script>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#exchangeTable').DataTable({
                 ajax: {
                     url: 'http://localhost:8080/trocas',
                     dataSrc: 'content'
                 },
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/pt-BR.json',
+                },
                 columns: [
                     { data: 'id' },
-                    { data: 'idLoja', render: function(data, type, row) { return getNomeFantasia(data); } },
-                    { data: 'idRepositor',render: function(data, type, row) { return getRepositorName(data); } },
-                    { data: 'idProduto',render: function(data, type, row) { return getNomeProduto(data); } },
+                    { data: 'idLoja', render: function (data, type, row) { return getNomeFantasia(data); } },
+                    { data: 'idRepositor', render: function (data, type, row) { return getRepositorName(data); } },
+                    { data: 'idProduto', render: function (data, type, row) { return getNomeProduto(data); } },
                     { data: 'lote' },
                     { data: 'dataTroca' },
                     { data: 'descricao' },
@@ -129,9 +132,9 @@
                     { data: 'motivoTroca' },
                     {
                         data: null,
-                        render: function(data, type, row) {
-                            return '<button onclick="editExchange(' + row.id + ')">Editar</button>' +
-                                   '<button onclick="deleteExchange(' + row.id + ')">Deletar</button>';
+                        render: function (data, type, row) {
+                            return '<button class="btn btn-primary" onclick="editExchange(' + row.id + ')">Editar</button>' +
+                                '<button class="btn btn-danger" onclick="deleteExchange(' + row.id + ')">Deletar</button>';
                         }
                     }
                 ]
@@ -146,10 +149,10 @@
                 type: 'GET',
                 dataType: 'json',
                 async: false,
-                success: function(data) {
+                success: function (data) {
                     nomeFantasia = data.nomeFantasia;
                 },
-                error: function() {
+                error: function () {
                     nomeFantasia = 'Erro ao buscar nome da loja';
                 }
             });
@@ -164,10 +167,10 @@
                 type: 'GET',
                 dataType: 'json',
                 async: false,
-                success: function(data) {
+                success: function (data) {
                     nomeRepositor = data.nome;
                 },
-                error: function() {
+                error: function () {
                     nomeRepositor = 'Erro ao buscar nome do Repositor';
                 }
             });
@@ -182,10 +185,10 @@
                 type: 'GET',
                 dataType: 'json',
                 async: false,
-                success: function(data) {
+                success: function (data) {
                     nomeProduto = data.nome;
                 },
-                error: function() {
+                error: function () {
                     nomeProduto = 'Erro ao buscar nome do produto';
                 }
             });
@@ -193,17 +196,20 @@
         }
 
         function editExchange(id) {
-            window.location.href = 'editTrocas.html?id=' + id;
+            window.location.href = 'editar.html?id=' + id;
         }
 
         function deleteExchange(id) {
             if (confirm('Tem certeza que deseja excluir esta troca?')) {
                 // Envie uma solicitação DELETE para a API
                 fetch('http://localhost:8080/trocas/' + id, { method: 'DELETE' })
-                    .then(response => response.json())
-                    .then(data => {
-                        // Exiba uma mensagem de sucesso ou realize alguma ação adicional
-                        console.log('Troca excluída com sucesso:', data);
+                    .then(response => {
+                        if (response.ok) {
+                            alert('Repositório deletado com sucesso!');
+                            location.reload();
+                        } else {
+                            alert('Erro ao deletar repositório!');
+                        }
                     })
                     .catch(error => console.error('Erro ao excluir troca:', error));
             }

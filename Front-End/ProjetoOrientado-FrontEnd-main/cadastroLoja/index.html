@@ -33,7 +33,7 @@
 
     <div class="container">
         <div class="table-list">
-            <h1>Lista de Lojas</h1>
+            <h1>Lojas</h1>
 
             <div class="table-responsive">
                 <table id="lojasTable">
@@ -64,10 +64,10 @@
     </div>
 
     <div id="buttons-group">
-        <a href="/cadastroFunc/produtos/editar.html">
+        <!-- <a href="/cadastroFunc/produtos/editar.html">
             <button type="button" class="btn btn-dark">Editar</button>
-        </a>
-        <a href="/cadastroFunc/produtos/adicionar.html">
+        </a> -->
+        <a href="adicionar.html">
             <button type="button" class="btn btn-dark">Adicionar</button>
         </a>
     </div>
@@ -118,6 +118,9 @@
                     url: 'http://localhost:8080/loja',
                     dataSrc: 'content'
                 },
+                language: {
+                            url: '//cdn.datatables.net/plug-ins/1.13.5/i18n/pt-BR.json',
+                        },
                 columns: [
                     { data: 'id' },
                     { data: 'rasaoSocial' },
@@ -141,8 +144,8 @@
                     {
                         data: 'id',
                         render: function(data) {
-                            return '<button onclick="editLoja(' + data + ')">Editar</button> ' +
-                                   '<button onclick="deleteLoja(' + data + ')">Deletar</button>';
+                            return '<button class="btn btn-primary" onclick="editLoja(' + data + ')">Editar</button> ' +
+                                   '<button class="btn btn-danger" onclick="deleteLoja(' + data + ')">Deletar</button>';
                         }
                     }
                 ]
@@ -150,7 +153,7 @@
         });
 
         function editLoja(id) {
-            window.location.href = 'editLojas.html?id=' + id;
+            window.location.href = 'editar.html?id=' + id;
         }
 
         function deleteLoja(id) {
@@ -160,7 +163,7 @@
                     type: 'DELETE',
                     success: function() {
                         alert('Loja deletada com sucesso!');
-                        $('#lojasTable').DataTable().ajax.reload();
+                        location.reload();
                     },
                     error: function() {
                         alert('Erro ao deletar loja!');
