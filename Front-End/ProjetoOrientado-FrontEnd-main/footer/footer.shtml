@@ -1,0 +1,40 @@
+<!--<footer class="footer text-center py-3">
+    <div class="container">
+        <div class="footer-columns" style="display: flex; justify-content: space-between;">
+            <div>
+                <h3>Canto de Minas</h3>
+                <p>Avenida Vinte e Nove, 777<br>
+                    Centro - Ituiutaba - MG<br>
+                    CEP 38300-106</p>
+            </div>
+            <div>
+                <h3>Serviço de Atendimento ao Consumidor</h3>
+                <p>Telefone: (34) 3271-6736<br>
+                    Email: falecom@cantodeminas.com.br</p>
+            </div>
+            <div>
+                <h3>Redes Sociais</h3>
+                <ul style="list-style-type: none; margin: 0; padding: 0;">
+                    <li>
+                        <a href="https://www.facebook.com/laticiniocantodeminas">
+                            <img class="icons" src="../icones/icons8-facebook-64.png" alt="Clique e acesse">
+                            Facebook</a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/cantodeminasoficial/"><img class="icons"
+                                src="../icones/icons8-instagram-64.png" alt="Clique e acesse">
+                            Instagram</a>
+                    </li>
+                    <li>
+                        <a href="https://www.youtube.com/@CantinhodeReceitas"><img class="icons"
+                                src="../icones/icons8-reproduzir-youtube-64.png" alt="Clique e acesse">
+                            Youtube</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div style="background-color: #333; color: white; text-align: center;">
+            &copy; Canto de Minas. 2023. Todos os direitos reservados.
+        </div>
+    </div>
+</footer>

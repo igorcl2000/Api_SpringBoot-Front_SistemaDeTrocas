@@ -1,0 +1,84 @@
+Em relação ao Spring Boot com Maven, SSI não é suportado nativamente. No entanto, você pode usar uma solução alternativa como Thymeleaf ou JSP para incluir fragmentos de código em suas páginas. Por exemplo, com Thymeleaf você pode criar um fragmento para sua barra de navegação e incluí-lo em suas páginas da seguinte maneira:
+
+<div th:replace="caminho/para/sua/barra/de/navegacao :: barra-de-navegacao"></div>
+
+
+
+// Associar o evento de submit do formulário à função cadastrarPaciente
+        document.getElementById('patient-form').addEventListener('submit', cadastrarPaciente);
+
+        // Extrair os valores do formulário
+        var nome = document.getElementById('nome').value;
+        var email = document.getElementById('email').value;
+        var telefone = document.getElementById('telefone').value;
+        var cpf = document.getElementById('cpf').value;
+        var logradouro = document.getElementById('logradouro').value;
+        var bairro = document.getElementById('bairro').value;
+        var cep = document.getElementById('cep').value;
+        var cidade = document.getElementById('cidade').value;
+        var uf = document.getElementById('uf').value;
+        var complemento = document.getElementById('complemento').value;
+        var numero = document.getElementById('numero').value;
+
+        // Criar objeto de dados do paciente
+        var paciente = {
+            nome: nome,
+            email: email,
+            telefone: telefone,
+            cpf: cpf,
+            endereco: {
+                logradouro: logradouro,
+                bairro: bairro,
+                cep: cep,
+                cidade: cidade,
+                uf: uf,
+                complemento: complemento,
+                numero: numero
+            }
+        };
+
+        // Enviar os dados para a API Rest
+        fetch('http://localhost:8080/funcionario', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(paciente)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Cadastro realizado com sucesso:', data);
+                // Redirecionar ou exibir uma mensagem de sucesso, se necessário
+            })
+            .catch(error => {
+                console.error('Erro ao cadastrar funcionario:', error);
+                // Exibir uma mensagem de erro, se necessário
+            });
+
+
+----------------------------------------------------------------------------------------------------
+LOGIN COM API
+
+            /*     document.querySelector('form').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const usernameInput = document.getElementById('usuario');
+      const passwordInput = document.getElementById('password');
+      if (usernameInput.value == "") {
+        usernameInput.classList.add('is-invalid');
+      }
+      if (passwordInput.value == "") {
+        passwordInput.classList.add('is-invalid');
+      } else {
+        // enviar os valores dos campos de entrada para um servidor
+        fetch('/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            username: usernameInput.value,
+            password: passwordInput.value
+          })
+        });
+      }
+    }); */

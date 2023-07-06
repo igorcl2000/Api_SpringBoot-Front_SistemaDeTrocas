@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #00852a;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        #back {
+            color: #00852a;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+
+        <a id="back" href="/cadastroFunc/index.html">
+            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-arrow-left"
+                viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8z" />
+            </svg>
+        </a>
+
+        <div class="container mt-3">
+            <h2>Editar Funcionário</h2>
+            <form id="patient-form">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome:</label>
+                    <input type="text" class="form-control" id="nome" name="nome" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telefone" class="form-label">Telefone:</label>
+                    <input type="tel" class="form-control" id="telefone" name="telefone" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cpf" class="form-label">CPF:</label>
+                    <input type="text" class="form-control" id="cpf" name="cpf" required>
+                </div>
+                <div class="mb-3">
+                    <label for="logradouro" class="form-label">Logradouro:</label>
+                    <input type="text" class="form-control" id="logradouro" name="logradouro" required>
+                </div>
+                <div class="mb-3">
+                    <label for="bairro" class="form-label">Bairro:</label>
+                    <input type="text" class="form-control" id="bairro" name="bairro" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cep" class="form-label">CEP:</label>
+                    <input type="text" class="form-control" id="cep" name="cep" required>
+                </div>
+                <div class="mb-3">
+                    <label for="cidade" class="form-label">Cidade:</label>
+                    <input type="text" class="form-control" id="cidade" name="cidade" required>
+                </div>
+                <div class="mb-3">
+                    <label for="uf" class="form-label">UF:</label>
+                    <input type="text" class="form-control" id="uf" name="uf" required>
+                </div>
+                <div class="mb-3">
+                    <label for="complemento" class="form-label">Complemento:</label>
+                    <textarea class="form-control" id="complemento" name="complemento"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="numero" class="form-label">Número:</label>
+                    <input type="text" class="form-control" id="numero" name="numero" required>
+                </div>
+                <div class="mb-3">
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('patient-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            // Extrair os valores do formulário
+            var nome = document.getElementById('nome').value;
+            var email = document.getElementById('email').value;
+            var telefone = document.getElementById('telefone').value;
+            var cpf = document.getElementById('cpf').value;
+            var logradouro = document.getElementById('logradouro').value;
+            var bairro = document.getElementById('bairro').value;
+            var cep = document.getElementById('cep').value;
+            var cidade = document.getElementById('cidade').value;
+            var uf = document.getElementById('uf').value;
+            var complemento = document.getElementById('complemento').value;
+            var numero = document.getElementById('numero').value;
+
+            // Criar objeto de dados do paciente
+            var paciente = {
+                nome: nome,
+                email: email,
+                telefone: telefone,
+                cpf: cpf,
+                endereco: {
+                    logradouro: logradouro,
+                    bairro: bairro,
+                    cep: cep,
+                    cidade: cidade,
+                    uf: uf,
+                    complemento: complemento,
+                    numero: numero
+                }
+            };
+
+            // Enviar os dados para a API Rest
+            fetch('http://localhost:8080/pacientes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(paciente)
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Cadastro realizado com sucesso:', data);
+                    // Redirecionar ou exibir uma mensagem de sucesso, se necessário
+                })
+                .catch(error => {
+                    console.error('Erro ao cadastrar paciente:', error);
+                    // Exibir uma mensagem de erro, se necessário
+                });
+        });
+    </script>
+
+</body>
+
+</html>

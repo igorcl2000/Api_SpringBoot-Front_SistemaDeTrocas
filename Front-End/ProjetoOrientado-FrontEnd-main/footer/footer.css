@@ -1,0 +1,42 @@
+footer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 1030;
+
+    background-color: #000000;
+    color: white;
+    text-align: center;
+}
+
+footer img {
+    width: 25%;
+}
+
+footer a {
+    color: #fd0d9d;
+}
+
+footer p {
+    font-family: "Bitter", sans-serif;
+}
+
+footer h3 {
+    font-family: cursive;
+}
+
+@media (max-width: 992px) {
+    footer {
+        font-size: 85%;
+        position: unset;
+    }
+
+    .footer-columns {
+        flex-direction: column;
+    }
+
+    footer img {
+        width: 8%;
+    }
+}

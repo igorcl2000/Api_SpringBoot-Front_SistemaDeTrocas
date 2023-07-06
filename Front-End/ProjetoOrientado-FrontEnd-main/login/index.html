@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="login-container bg-white p-4 rounded shadow">
+      <img src="../logo-canto-de-minas.svg" alt="Logo" class="img-fluid mb-4 w-50">
+      <h1 class="h3 mb-3">Login</h1>
+      <p class="text-uppercase mb-4">Entre para continuar</p>
+      <form>
+        <div class="mb-3">
+          <input id="usuario" type="text" class="form-control" placeholder="Username">
+        </div>
+        <div class="mb-3">
+          <input id="password" type="password" class="form-control" placeholder="Password">
+          <div class="invalid-feedback">Usuário ou senha inválidos.</div>
+        </div>
+        <button type="submit" class="btn btn-success">Entrar</button>
+      </form>
+      <p class="mt-3"><a href="/redefinir/index.html">Esqueceu sua senha?</a></p>
+    </div>
+  </div>
+
+  <script>
+    document.querySelector('button[type="submit"]').addEventListener('click', function (event) {
+      event.preventDefault();
+      this.innerHTML = 'Carregando <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>';
+      setTimeout(() => {
+        this.innerHTML = 'Entrar';
+        dados();
+      }, 2000);
+    });
+
+    function dados() {
+      const usernameInput = document.getElementById('usuario');
+      const passwordInput = document.getElementById('password');
+      if (usernameInput.value != 'admin' || passwordInput.value != 'admin') {
+        usernameInput.classList.add('is-invalid');
+        passwordInput.classList.add('is-invalid');
+      }
+      if (usernameInput.value == 'admin' && passwordInput.value == 'admin'){
+        window.location.href = "../homePage/index.html";
+      }
+    };
+
+  </script>
+</body>
+
+</html>

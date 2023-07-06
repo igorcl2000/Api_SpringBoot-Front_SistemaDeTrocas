@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../navbar/style.css">
+    <link rel="stylesheet" href="../footer/footer.css">
+    <link rel="stylesheet" href="../refresh/refresh.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            background-color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="barra-de-navegacao"></div>
+
+    <div class="b-example-divider"></div>
+
+    <div class="container">
+        <div class="table-list">
+            <h1>Lista de Lojas</h1>
+
+            <div class="table-responsive">
+                <table id="lojasTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Razão Social</th>
+                            <th>Nome Fantasia</th>
+                            <th>CNPJ</th>
+                            <th>Telefone</th>
+                            <th>Responsável</th>
+                            <th>Endereço</th>
+                            <th>Logradouro</th>
+                            <th>Bairro</th>
+                            <th>CEP</th>
+                            <th>Número</th>
+                            <th>Complemento</th>
+                            <th>Cidade</th>
+                            <th>UF</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="buttons-group">
+        <a href="/cadastroFunc/produtos/editar.html">
+            <button type="button" class="btn btn-dark">Editar</button>
+        </a>
+        <a href="/cadastroFunc/produtos/adicionar.html">
+            <button type="button" class="btn btn-dark">Adicionar</button>
+        </a>
+    </div>
+
+    <div class="b-example-divider"></div>
+
+    <div id="footer"></div>
+
+    <div class="pull-to-refresh">
+        <div class="spinner-border"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        window.addEventListener('load', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('barra-de-navegacao').innerHTML = this.responseText;
+                }
+            };
+            xhr.open('GET', '../navbar/navbar.shtml', true);
+            xhr.send();
+        });
+
+        window.addEventListener('load', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('footer').innerHTML = this.responseText;
+                }
+            };
+            xhr.open('GET', '../footer/footer.shtml', true);
+            xhr.send();
+        });
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#lojasTable').DataTable({
+                ajax: {
+                    url: 'http://localhost:8080/loja',
+                    dataSrc: 'content'
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'rasaoSocial' },
+                    { data: 'nomeFantasia' },
+                    { data: 'cnpj' },
+                    { data: 'telefone' },
+                    { data: 'responsavel' },
+                    {
+                        data: 'endereco',
+                        render: function(data) {
+                            return data.logradouro + ', ' + data.bairro + ', ' + data.cep + ', ' + data.numero + ', ' + data.complemento + ', ' + data.cidade + ', ' + data.uf;
+                        }
+                    },
+                    { data: 'endereco.logradouro', visible: false },
+                    { data: 'endereco.bairro', visible: false },
+                    { data: 'endereco.cep', visible: false },
+                    { data: 'endereco.numero', visible: false },
+                    { data: 'endereco.complemento', visible: false },
+                    { data: 'endereco.cidade', visible: false },
+                    { data: 'endereco.uf', visible: false },
+                    {
+                        data: 'id',
+                        render: function(data) {
+                            return '<button onclick="editLoja(' + data + ')">Editar</button> ' +
+                                   '<button onclick="deleteLoja(' + data + ')">Deletar</button>';
+                        }
+                    }
+                ]
+            });
+        });
+
+        function editLoja(id) {
+            window.location.href = 'editLojas.html?id=' + id;
+        }
+
+        function deleteLoja(id) {
+            if (confirm('Deseja realmente deletar esta loja?')) {
+                $.ajax({
+                    url: 'http://localhost:8080/loja/' + id,
+                    type: 'DELETE',
+                    success: function() {
+                        alert('Loja deletada com sucesso!');
+                        $('#lojasTable').DataTable().ajax.reload();
+                    },
+                    error: function() {
+                        alert('Erro ao deletar loja!');
+                    }
+                });
+            }
+        }
+    </script>
+
+    <script src="../refresh/refresh.js"></script>
+
+</body>
+
+</html>

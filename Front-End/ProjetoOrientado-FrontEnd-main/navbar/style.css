@@ -1,0 +1,24 @@
+.navbar {
+  background-color: #fcb103;
+}
+
+.icons{
+  width: 25%;
+}
+
+.navbar-brand {
+  max-height: 50px;
+}
+@media (max-width: 992px) {
+  .navbar-brand {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .navbar-toggler {
+    order: -1;
+  }
+  .icons{
+    width: 6%;
+  }
+}

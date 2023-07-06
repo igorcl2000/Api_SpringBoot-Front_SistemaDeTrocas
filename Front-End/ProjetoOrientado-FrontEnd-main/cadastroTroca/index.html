@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../navbar/style.css">
+    <link rel="stylesheet" href="../footer/footer.css">
+    <link rel="stylesheet" href="../refresh/refresh.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            background-color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div id="barra-de-navegacao"></div>
+
+    <div class="b-example-divider"></div>
+
+    <div class="container">
+        <div class="table-list">
+            <h1>Lista de Trocas</h1>
+
+            <div class="table-responsive">
+                <table id="exchangeTable">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>ID Loja</th>
+                            <th>ID Repositor</th>
+                            <th>ID Produto</th>
+                            <th>Lote</th>
+                            <th>Data de Troca</th>
+                            <th>Descrição</th>
+                            <th>Quantidade</th>
+                            <th>Data de Fabricação</th>
+                            <th>Data de Vencimento</th>
+                            <th>Motivo de Troca</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="buttons-group">
+        <a href="/cadastroFunc/produtos/editar.html">
+            <button type="button" class="btn btn-dark">Editar</button>
+        </a>
+        <a href="/cadastroFunc/produtos/adicionar.html">
+            <button type="button" class="btn btn-dark">Adicionar</button>
+        </a>
+    </div>
+
+    <div class="b-example-divider"></div>
+
+    <div id="footer"></div>
+
+    <div class="pull-to-refresh">
+        <div class="spinner-border"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        window.addEventListener('load', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('barra-de-navegacao').innerHTML = this.responseText;
+                }
+            };
+            xhr.open('GET', '../navbar/navbar.shtml', true);
+            xhr.send();
+        });
+
+        window.addEventListener('load', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('footer').innerHTML = this.responseText;
+                }
+            };
+            xhr.open('GET', '../footer/footer.shtml', true);
+            xhr.send();
+        });
+    </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#exchangeTable').DataTable({
+                ajax: {
+                    url: 'http://localhost:8080/trocas',
+                    dataSrc: 'content'
+                },
+                columns: [
+                    { data: 'id' },
+                    { data: 'idLoja', render: function(data, type, row) { return getNomeFantasia(data); } },
+                    { data: 'idRepositor',render: function(data, type, row) { return getRepositorName(data); } },
+                    { data: 'idProduto',render: function(data, type, row) { return getNomeProduto(data); } },
+                    { data: 'lote' },
+                    { data: 'dataTroca' },
+                    { data: 'descricao' },
+                    { data: 'quantidade' },
+                    { data: 'dataFabricacao' },
+                    { data: 'dataVencimento' },
+                    { data: 'motivoTroca' },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return '<button onclick="editExchange(' + row.id + ')">Editar</button>' +
+                                   '<button onclick="deleteExchange(' + row.id + ')">Deletar</button>';
+                        }
+                    }
+                ]
+            });
+        });
+
+        function getNomeFantasia(idLoja) {
+            var url = 'http://localhost:8080/loja/' + idLoja;
+            var nomeFantasia = '';
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                async: false,
+                success: function(data) {
+                    nomeFantasia = data.nomeFantasia;
+                },
+                error: function() {
+                    nomeFantasia = 'Erro ao buscar nome da loja';
+                }
+            });
+            return nomeFantasia;
+        }
+
+        function getRepositorName(idRepositor) {
+            var url = 'http://localhost:8080/repositor/' + idRepositor;
+            var nomeRepositor = '';
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                async: false,
+                success: function(data) {
+                    nomeRepositor = data.nome;
+                },
+                error: function() {
+                    nomeRepositor = 'Erro ao buscar nome do Repositor';
+                }
+            });
+            return nomeRepositor;
+        }
+
+        function getNomeProduto(idProduto) {
+            var url = 'http://localhost:8080/produto/' + idProduto;
+            var nomeProduto = '';
+            $.ajax({
+                url: url,
+                type: 'GET',
+                dataType: 'json',
+                async: false,
+                success: function(data) {
+                    nomeProduto = data.nome;
+                },
+                error: function() {
+                    nomeProduto = 'Erro ao buscar nome do produto';
+                }
+            });
+            return nomeProduto;
+        }
+
+        function editExchange(id) {
+            window.location.href = 'editTrocas.html?id=' + id;
+        }
+
+        function deleteExchange(id) {
+            if (confirm('Tem certeza que deseja excluir esta troca?')) {
+                // Envie uma solicitação DELETE para a API
+                fetch('http://localhost:8080/trocas/' + id, { method: 'DELETE' })
+                    .then(response => response.json())
+                    .then(data => {
+                        // Exiba uma mensagem de sucesso ou realize alguma ação adicional
+                        console.log('Troca excluída com sucesso:', data);
+                    })
+                    .catch(error => console.error('Erro ao excluir troca:', error));
+            }
+        }
+    </script>
+
+    <script src="../refresh/refresh.js"></script>
+
+</body>
+
+</html>

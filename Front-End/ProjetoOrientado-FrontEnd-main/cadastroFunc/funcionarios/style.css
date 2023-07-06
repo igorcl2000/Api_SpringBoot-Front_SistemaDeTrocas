@@ -1,0 +1,85 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #00852a;
+}
+
+.container {
+  padding-top: 2%;
+}
+
+/* Altera a cor de fundo do cabeçalho da tabela */
+.dataTables_wrapper.no-footer thead th {
+  background-color: #00852a;
+  color: #fff;
+}
+
+/* Altera a cor de fundo das linhas ímpares da tabela */
+.dataTables_wrapper.no-footer tbody tr:nth-child(odd) {
+  background-color: #e6ffe6;
+}
+
+/* Altera a cor de fundo das linhas pares da tabela */
+.dataTables_wrapper.no-footer tbody tr:nth-child(even) {
+  background-color: #ccffcc;
+}
+
+/* Altera a cor de fundo dos botões de paginação */
+.dataTables_wrapper.no-footer .dataTables_paginate .paginate_button {
+  color: #fff !important;
+}
+
+/* Altera a cor de fundo dos botões de paginação */
+.dataTables_wrapper.no-footer .dataTables_paginate .paginate_button:hover {
+  background-color: #000000 !important;
+  color: #fff !important;
+}
+
+/* Altera a cor de fundo do botão de paginação ativo */
+.dataTables_wrapper.no-footer .dataTables_paginate .paginate_button.current {
+  color: #fff !important;
+}
+
+/* Altera a cor de fundo das informações das paginas */
+.dataTables_wrapper.no-footer .dataTables_info {
+  color: #fff !important;
+}
+
+/* Altera a cor de fundo e a cor do texto do campo de busca */
+.dataTables_wrapper.no-footer .dataTables_filter input {
+  background-color: #00852a !important;
+  color: #fff !important;
+  border: 1px solid #000 !important;
+}
+
+/* Altera a cor do texto do search */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info,
+.dataTables_wrapper .dataTables_processing,
+.dataTables_wrapper .dataTables_paginate {
+  color: #000 !important;
+}
+
+/* Altera o background da tabela */
+.table-striped>tbody>tr:nth-of-type(odd)>*{
+  --bs-table-accent-bg:#fff
+}
+
+/* Altera os botoes editar e adicionar */
+#buttons-group {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-left: 60%;
+  padding-top: 3.5%;
+  justify-content: center;
+  align-items: center;
+}
+#buttons-group button {
+    margin: 0 5px;
+}

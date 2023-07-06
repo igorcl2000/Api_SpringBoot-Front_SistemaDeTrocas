@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #00852a;
+}
+
+.table-list {
+  padding-top: 2%;
+}
+
+/* Altera o background da tabela */
+.table-striped>tbody>tr:nth-of-type(odd)>* {
+  --bs-table-accent-bg: #fff
+}
+
+/* Altera os botoes editar e adicionar */
+#buttons-group {
+  display: flex;
+  flex-wrap: nowrap;
+  padding-left: 60%;
+  padding-top: 3.5%;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 4%;
+}
+
+#buttons-group button {
+  margin: 0 5px;
+}
+
+.b-example-divider {
+  height: 3rem;
+  background-color: rgba(0, 0, 0, .1);
+  border: solid rgba(0, 0, 0, .15);
+  border-width: 1px 0;
+  box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+}

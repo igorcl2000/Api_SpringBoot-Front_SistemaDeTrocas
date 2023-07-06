@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Bitter">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../navbar/style.css">
+    <link rel="stylesheet" href="../footer/footer.css">
+</head>
+
+<body>
+
+    <div id="barra-de-navegacao"></div>
+
+    <div class="b-example-divider"></div>
+
+    <div class="container">
+        <h1>Em Breve</h1>
+        <p>Estamos trabalhando nesta página. Por favor, volte novamente em breve.</p>
+    </div>
+
+    <div class="b-example-divider"></div>
+
+    <div id="footer"></div>
+
+</body>
+
+<script>
+    /* Exemplo para adicionar barra de navegação com LocalHost usando o LiveSever */
+    window.addEventListener('load', function () {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById('barra-de-navegacao').innerHTML = this.responseText;
+            }
+        };
+        xhr.open('GET', '../navbar/navbar.shtml', true);
+        xhr.send();
+    });
+
+    window.addEventListener('load', function () {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById('footer').innerHTML = this.responseText;
+                }
+            };
+            xhr.open('GET', '../footer/footer.shtml', true);
+            xhr.send();
+        });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"></script>
+
+</html>
