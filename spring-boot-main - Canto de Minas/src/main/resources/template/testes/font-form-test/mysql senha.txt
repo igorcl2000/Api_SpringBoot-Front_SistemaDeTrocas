@@ -1,0 +1,46 @@
+ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPass';
+
+
+
+mysqld --defaults-file="C:\\ProgramData\\MySQL\\MySQL Server 5.7\\my.ini"
+
+
+
+
+Igor@2020
+
+
+preciso de um formulario html e css para cadastrar um paciente contendo as seguintes informações:
+
+nome, email, telefone, cpf, DadosEndereco com: ( logradouro, bairro, cep, cidade, uf, complemento, numero)
+
+e preciso enviar essas informações para um API Rest usando javascript em Post "localhost:8080/pacientes"
+
+usando esse json como exemplo:
+
+{
+"nome": "heitor Pasd21",
+"email": "arthurpldas21@gmail.com",
+"telefone":"91696480",
+"cpf": "13067343541",
+"endereco": {
+    "logradouro": "rua 1",
+    "bairro": "bairro",
+    "cep": "12345678",
+    "cidade": "Brasilia",
+    "uf": "DF",
+    "complemento": "complemento"
+    }
+}
+
+
+
+----------------------------
+
+
+
+preciso de uma pagina html, com css elegante contendo um formulário listar pacientes contendo as seguintes informações:
+
+nome, email, telefone, cpf.
+
+e preciso receber essas informações de uma API Rest usando javascript em  Get "localhost:8080/pacientes"

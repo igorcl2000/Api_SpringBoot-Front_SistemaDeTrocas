@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <h1>Lista de Funcionarios</h1>
+
+    <table id="repositor">
+        <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Telefone</th>
+            <th>CPF</th>
+        </tr>
+    </table>
+
+    <script>
+        // Função para preencher a tabela com os funcionario cadastrados
+        function preencherTabelaRepositores(repositor) {
+            var table = document.getElementById('repositor-table');
+
+            funcionario.forEach(repositor => {
+                var row = table.insertRow(-1);
+                row.insertCell(0).innerHTML = repositor.nome;
+                row.insertCell(1).innerHTML = repositor.email;
+                row.insertCell(2).innerHTML = repositor.telefone;
+                row.insertCell(3).innerHTML = repositor.cpf;
+            });
+        }
+
+        // Função para buscar os funcionario cadastrados na API REST
+        function buscarRepositores() {
+            fetch('http://localhost:8080/repositor')
+                .then(response => response.json())
+                .then(data => {
+                    preencherTabelaRepositores(data.content);
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar repositores:', error);
+                });
+        }
+
+        // Chamar a função para buscar os funcionario ao carregar a página
+        buscarRepositores();
+    </script>
+
+</body>
+
+</html>
